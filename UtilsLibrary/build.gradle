@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation 'com.yanzhenjie:permission:2.0.0-rc11'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta01'
-    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+
 }
 repositories {
     mavenCentral()
