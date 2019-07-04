@@ -1,0 +1,15 @@
+com.acker.simplezxing
+color possible_result_points
+color result_view
+color viewfinder_laser
+color viewfinder_mask
+id decode
+id decode_failed
+id decode_succeeded
+id preview_view
+id quit
+id viewfinder_view
+layout capture
+raw beep
+string hint_scan
+string msg_camera_framework_bug
