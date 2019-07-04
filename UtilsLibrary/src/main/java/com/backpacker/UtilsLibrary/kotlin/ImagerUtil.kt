@@ -19,17 +19,17 @@ import java.io.IOException
  * @Copyright: 2019
  */
 object ImagerUtil {
-    fun saveImage(context: Context, inputstream:ByteArray): String {
-        val bitmap = BitmapFactory.decodeByteArray(inputstream,0,inputstream.size)
-        val path =context.cacheDir.absolutePath
+    fun saveImage(context: Context, inputstream: ByteArray): String {
+        val bitmap = BitmapFactory.decodeByteArray(inputstream, 0, inputstream.size)
+        val path = context.cacheDir.absolutePath
         val file = File(path)
         if (!file.exists()) {
             file.mkdirs();
         }
-        val name:String=""+System.currentTimeMillis()+".jpg"
-        val fileOne=File(file,name)
+        val name: String = "" + System.currentTimeMillis() + ".jpg"
+        val fileOne = File(file, name)
         try {
-            val  fileOutputStream = FileOutputStream(fileOne)
+            val fileOutputStream = FileOutputStream(fileOne)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
             fileOutputStream.flush()
             fileOutputStream.close()
@@ -41,7 +41,7 @@ object ImagerUtil {
     }
 
     // 这里是根据质量压缩.可以吧图片压缩到100K以下,然后保存到本地文件
-    fun compressAndSave(context: Context,image: Bitmap?): String {
+    fun compressAndSave(context: Context, image: Bitmap?): String {
         var image = image
         var path = ""
         try {
@@ -53,7 +53,7 @@ object ImagerUtil {
                 image.compress(Bitmap.CompressFormat.JPEG, options, baos)// 这里压缩options%，把压缩后的数据存放到baos中
                 options -= 10// 每次都减少10
             }
-            path = saveImg(context,baos)
+            path = saveImg(context, baos)
 
             if (image != null && image.isRecycled) {
                 image.recycle()
@@ -66,11 +66,11 @@ object ImagerUtil {
     }
 
     //图片保存到本地，--返回图片的路径
-    private  fun saveImg(context: Context, bos: ByteArrayOutputStream): String {
+    private fun saveImg(context: Context, bos: ByteArrayOutputStream): String {
         var fos: FileOutputStream? = null
 //        var path:String=""
 //        var path = getImgpath(context,System.currentTimeMillis().toString())
-        var path = context.externalCacheDir!!.absolutePath+File.separator+"/"+System.currentTimeMillis()+".png"
+        var path = context.externalCacheDir!!.absolutePath + File.separator + "/" + System.currentTimeMillis() + ".png"
         val file = File(path)
         try {
 //            val filePath = context.externalCacheDir.absolutePath+File.separator+"image"
@@ -85,13 +85,13 @@ object ImagerUtil {
             if (!file.exists()) {
                 file.createNewFile()
             }
-            path=file.toString()
+            path = file.toString()
             fos = FileOutputStream(file)
             fos.write(bos.toByteArray())
             fos.flush()
         } catch (e: IOException) {
             e.printStackTrace()
-            path=""
+            path = ""
         } finally {
             try {
                 fos?.close()
@@ -103,6 +103,28 @@ object ImagerUtil {
         }
         return path
 
+    }
+
+    fun getDefaultPath(context: Context): String {
+        var path = context.externalCacheDir!!.absolutePath + File.separator + "/"
+        val file = File(path)
+        try {
+//            val filePath = context.externalCacheDir.absolutePath+File.separator+"image"
+//            val file01 = File(filePath)
+//            if(!file01.exists()){
+//                file01.mkdirs()
+//            }
+//            val file02 = File(file01,System.currentTimeMillis().toString()+".png")
+//            if(!file02.exists()){
+//                file02.createNewFile()
+//            }
+            if (!file.exists()) {
+                file.createNewFile()
+            }
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+        return path
     }
 
 }

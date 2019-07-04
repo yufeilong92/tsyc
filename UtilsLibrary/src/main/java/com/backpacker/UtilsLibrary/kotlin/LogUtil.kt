@@ -23,7 +23,7 @@ object LogUtil {
     val ERROR = 5
     val NOTHING = 6
     //修改其等级不打log
-    val LEVEL = NOTHING
+    val LEVEL = VERBOSE
     val SEPARATOR = ","
 
     fun v(message: String) {

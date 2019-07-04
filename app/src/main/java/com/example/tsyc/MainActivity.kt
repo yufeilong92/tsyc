@@ -1,6 +1,7 @@
 package com.example.tsyc
 
 import android.content.Intent
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -8,15 +9,21 @@ import com.acker.simplezxing.activity.CaptureActivity
 import com.backpacker.UtilsLibrary.base.BaseActivity
 import com.backpacker.UtilsLibrary.kotlin.PermissionUtils
 import com.backpacker.UtilsLibrary.kotlin.Util
-import com.luck.picture.lib.PictureSelector
-import com.luck.picture.lib.config.PictureConfig
-import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.entity.LocalMedia
 import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.ArrayList
+import android.R.attr.data
+import com.backpacker.UtilsLibrary.kotlin.LogUtil
+import me.nereo.multi_image_selector.MultiImageSelector
+import me.nereo.multi_image_selector.MultiImageSelectorActivity
+import android.R.attr.data
+
+
+
 
 class MainActivity : BaseActivity() {
     private val REQ_CODE_PERMISSION = 0x1111
+    var mSelectPath= arrayListOf<String>()
     override fun setContentView(): Int {
         return R.layout.activity_main
     }
@@ -43,12 +50,17 @@ class MainActivity : BaseActivity() {
                 "",
                 arrayOf(Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE)
             ) {
-                PictureSelector.create(mContext)
-                    .openGallery(PictureMimeType.ofImage())
-                    .forResult(PictureConfig.CHOOSE_REQUEST)
+                MultiImageSelector.create(mContext)
+                    .showCamera(true) // show camera or not. true by default
+                    .count(9) // max select image size, 9 by default. used width #.multi()
+                    .single() // single mode
+                    .multi() // multi mode, default mode;
+                    .origin(mSelectPath) // original select data set, used width #.multi()
+                    .start(this@MainActivity, REQ_CODE_PERMISSION);
             }
         }
     }
+
 
     private fun startCaptureActivityForResult() {
         val intent = Intent(this@MainActivity, CaptureActivity::class.java)
@@ -88,17 +100,20 @@ class MainActivity : BaseActivity() {
                 }
 
             }
-            PictureConfig.CHOOSE_REQUEST->{
-                when(RESULT_OK){
-                    // 图片、视频、音频选择结果回调
-                        // 例如 LocalMedia 里面返回三种path
-                        // 1.media.getPath(); 为原图path
-                        // 2.media.getCutPath();为裁剪后path，需判断media.isCut();是否为true  注意：音视频除外
-                        // 3.media.getCompressPath();为压缩后path，需判断media.isCompressed();是否为true  注意：音视频除外
-                        // 如果裁剪并压缩了，以取压缩路径为准，因为是先裁剪后压缩的
+            REQ_CODE_PERMISSION->{
+                when(resultCode){
+                    RESULT_OK->{
+                        if (data != null) {
+                            val path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)
+                            for (item in path){
+                                LogUtil.e(item)
+                            }
+                        }
+                    }
                 }
 
             }
+
         }
     }
 

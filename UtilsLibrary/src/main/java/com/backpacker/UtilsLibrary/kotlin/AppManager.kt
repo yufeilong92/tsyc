@@ -1,5 +1,6 @@
 package com.backpacker.UtilsLibrary.kotlin
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
@@ -114,6 +115,7 @@ class AppManager {
     /**
      * 退出应用程序
      */
+    @SuppressLint("NewApi")
     fun AppExit(context: Context) {
         try {
             finishAllActivity()
