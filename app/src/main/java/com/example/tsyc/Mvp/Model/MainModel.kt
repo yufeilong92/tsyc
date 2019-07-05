@@ -14,7 +14,7 @@ import com.zzzh.akhalteke.mvp.view.RequestResultInterface
  */
 class MainModel : MainView.Model {
     override fun requestGson(context: Context, request: RequestResultInterface) {
-        Request_Net.getGson({
+        Request_Net.getString({
             request.Success(it)
         }, {
             request.onComplise()

@@ -106,4 +106,25 @@ object Request_Net {
         val gosn = createService.getGosn()
 
     }
+
+    fun getString(success: (t: Any) -> Unit, complete: () -> Unit, error: (str: Throwable) -> Unit) {
+        val service = BaseServiceUtil.createService(Get_Interface::class.java, DataManager.mHttp)
+        val call = service.getString()
+        call.enqueue(object : Callback<String> {
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                error(t)
+                complete()
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+               if(response.isSuccessful){
+                   success(response.body().toString())
+               }else{
+                   error(Throwable(response.message()))
+               }
+                complete()
+            }
+
+        })
+    }
 }

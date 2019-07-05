@@ -19,5 +19,8 @@ interface Get_Interface {
     @GET("WVector/AppUpdateDemo/master/json/json.txt")
     fun getGosn():Observable<BaseEntity<String>>
 
+    @GET("WVector/AppUpdateDemo/master/json/json.txt")
+    fun getString():Call<String>
+
 
 }

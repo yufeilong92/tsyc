@@ -182,11 +182,12 @@ class MainActivity : BaseActivity(), MainView.View {
     }
 
     override fun Error(ex: Throwable) {
+        this.onError(ex)
 
     }
 
     override fun Complise() {
-
+        this.onComplate()
     }
 
 
