@@ -18,11 +18,11 @@ interface MainView {
     }
 
     interface Model {
-        fun requestCarLength(context: Context, request: RequestResultInterface)
+        fun requestGson(context: Context, request: RequestResultInterface)
     }
 
     interface Presenter {
         fun initMvp(view: View, model: Model)
-        fun requestCarLength(context: Context)
+        fun requestGson(context: Context)
     }
 }

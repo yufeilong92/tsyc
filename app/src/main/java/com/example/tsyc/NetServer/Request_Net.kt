@@ -1,6 +1,8 @@
 package com.example.tsyc.NetServer
 
 import android.util.Log
+import com.backpacker.UtilsLibrary.kotlin.T
+import com.backpacker.UtilsLibrary.net.BaseServiceUtil
 import com.backpacker.UtilsLibrary.net.CommonInterceptor
 import com.example.tsyc.Vo.DataManager
 import io.reactivex.Observable
@@ -27,7 +29,7 @@ import java.util.concurrent.TimeUnit
  * @Purpose :请求综合
  */
 object Request_Net {
-    private val DEFAULT_TIMEOUT :Long= 10
+    private val DEFAULT_TIMEOUT: Long = 10
     private val TAG: String = "[" + Request_Net::class.java.simpleName + "]="
     fun getBitmap(success: (t: String) -> Unit, complete: () -> Unit, error: (str: String) -> Unit) {
         val observer = object : Observer<String> {
@@ -53,8 +55,8 @@ object Request_Net {
         }
         Observable.create(object : ObservableOnSubscribe<String> {
             override fun subscribe(emitter: ObservableEmitter<String>) {
-                val interceptor= CommonInterceptor()
-                val clienBuilde= OkHttpClient.Builder()
+                val interceptor = CommonInterceptor()
+                val clienBuilde = OkHttpClient.Builder()
                     .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
 
@@ -67,7 +69,7 @@ object Request_Net {
                 val build = clienBuilde.build()
                 val client = retrofit.client(build).build()
                 val create = client.create(Get_Interface::class.java)
-                val bitmap = create.getBitmap("shentong","3708293428085")
+                val bitmap = create.getBitmap("shentong", "3708293428085")
                 bitmap.enqueue(object : Callback<String> {
                     override fun onFailure(call: Call<String>, t: Throwable) {
                         emitter.onError(t)
@@ -96,6 +98,12 @@ object Request_Net {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe(observer)
+
+    }
+
+    fun getGson(success: (t: Any) -> Unit, complete: () -> Unit, error: (str: Throwable) -> Unit) {
+        val createService = BaseServiceUtil.createService(Get_Interface::class.java, DataManager.mHttp)
+        val gosn = createService.getGosn()
 
     }
 }

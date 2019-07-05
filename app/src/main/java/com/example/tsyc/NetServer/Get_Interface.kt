@@ -1,5 +1,7 @@
 package com.example.tsyc.NetServer
 
+import android.database.Observable
+import com.backpacker.UtilsLibrary.kotlin.BaseEntity
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -14,6 +16,8 @@ import retrofit2.http.Query
 interface Get_Interface {
     @GET("query")
     fun getBitmap(@Query("value") type: String, @Query("postid") postid: String): Call<String>;
+    @GET("WVector/AppUpdateDemo/master/json/json.txt")
+    fun getGosn():Observable<BaseEntity<String>>
 
 
 }

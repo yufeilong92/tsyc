@@ -8,6 +8,6 @@ package com.example.tsyc.Vo
  * @Purpose :
  */
 object DataManager {
-     val mHttp:String=""
+     val mHttp:String="https://raw.githubusercontent.com/"
      val mImager:String="http://www.kuaidi100.com/"
 }

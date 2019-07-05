@@ -8,6 +8,9 @@ import com.acker.simplezxing.activity.CaptureActivity
 import com.example.tsyc.Base.BaseActivity
 import com.backpacker.UtilsLibrary.kotlin.PermissionUtils
 import com.backpacker.UtilsLibrary.kotlin.Util
+import com.example.tsyc.Mvp.Contrat.MainView
+import com.example.tsyc.Mvp.Model.MainModel
+import com.example.tsyc.Mvp.Presenter.MainPresenter
 import com.example.tsyc.UpDateNet.updateapp.UpdateAppHttpUtil
 import com.example.tsyc.UpDateNet.util.CProgressDialogUtils.cancelProgressDialog
 import com.example.tsyc.UpDateNet.util.CProgressDialogUtils.showProgressDialog
@@ -22,13 +25,21 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), MainView.View {
+
     override fun setInitContentView(): Int {
         return R.layout.activity_main
     }
 
     override fun onInitCreateView(savedInstanceState: Bundle?) {
         initView()
+        initRequest()
+    }
+
+    private var mPresenter: MainPresenter? = null
+    fun initRequest() {
+        mPresenter = MainPresenter()
+        mPresenter!!.initMvp(this, MainModel())
     }
 
     fun initView() {
@@ -49,12 +60,15 @@ class MainActivity : BaseActivity() {
         btn_three.setOnClickListener {
             PermissionUtils.showPermission(
                 mContext, "",
-                arrayOf(Permission.READ_EXTERNAL_STORAGE,Permission.WRITE_EXTERNAL_STORAGE)
+                arrayOf(Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE)
             ) {
                 upDateApp()
             }
         }
-
+        btn_four.setOnClickListener {
+            showProgress()
+            mPresenter!!.requestGson(this)
+        }
     }
 
 
@@ -132,35 +146,48 @@ class MainActivity : BaseActivity() {
 //            setAppKey("ab55ce55Ac4bcP408cPb8c1Aaeac179c5f6f")
 
         }.check {
-                onBefore {
-                    showProgressDialog(this@MainActivity)
-                }
-                //自定义解析
-                parseJson {
-                     var   isUpdate = false
-                    var isUpdataApp = ""
-//                    val jsonObject = JSONObject(it)
-                    UpdateAppBean()
-                        //（必须）是否更新Yes,No
-                        .setUpdate("Yes")
-                        //（必须）新版本号，
-                        .setNewVersion("1.2")
-                        //（必须）下载地址
-                        .setApkFileUrl("https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk")
-                        //（必须）更新内容
-                        .setUpdateLog("https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk")
-                        //大小，不设置不显示大小，可以不设置
-                        .setTargetSize("1.2")
-                        //是否强制更新，可以不设置
-                        .setConstraint(false)
-                }
-                noNewApp {
-                    toast("当前已经是最新版本")
-                }
-                onAfter {
-                    cancelProgressDialog(this@MainActivity)
-                }
+            onBefore {
+                showProgressDialog(this@MainActivity)
             }
+            //自定义解析
+            parseJson {
+                var isUpdate = false
+                var isUpdataApp = ""
+//                    val jsonObject = JSONObject(it)
+                UpdateAppBean()
+                    //（必须）是否更新Yes,No
+                    .setUpdate("Yes")
+                    //（必须）新版本号，
+                    .setNewVersion("1.2")
+                    //（必须）下载地址
+                    .setApkFileUrl("https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk")
+                    //（必须）更新内容
+                    .setUpdateLog("https://qd.myapp.com/myapp/qqteam/AndroidQQ/mobileqq_android.apk")
+                    //大小，不设置不显示大小，可以不设置
+                    .setTargetSize("1.2")
+                    //是否强制更新，可以不设置
+                    .setConstraint(false)
+            }
+            noNewApp {
+                toast("当前已经是最新版本")
+            }
+            onAfter {
+                cancelProgressDialog(this@MainActivity)
+            }
+        }
     }
+
+    override fun Success(t: Any?) {
+
+    }
+
+    override fun Error(ex: Throwable) {
+
+    }
+
+    override fun Complise() {
+
+    }
+
 
 }

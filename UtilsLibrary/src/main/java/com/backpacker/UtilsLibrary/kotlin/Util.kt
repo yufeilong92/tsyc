@@ -327,4 +327,15 @@ object Util {
             dialog.show()
         }
     }
+
+    /**
+     * 取消dialog
+     * @param dialog
+     */
+    fun dismissDialog(dialog: Dialog?) {
+        if (dialog != null && dialog.isShowing) {
+            dialog.dismiss()
+        }
+    }
+
 }

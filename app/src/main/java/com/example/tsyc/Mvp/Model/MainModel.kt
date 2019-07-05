@@ -2,6 +2,7 @@ package com.example.tsyc.Mvp.Model
 
 import android.content.Context
 import com.example.tsyc.Mvp.Contrat.MainView
+import com.example.tsyc.NetServer.Request_Net
 import com.zzzh.akhalteke.mvp.view.RequestResultInterface
 
 /**
@@ -11,8 +12,15 @@ import com.zzzh.akhalteke.mvp.view.RequestResultInterface
  * @Time :2019/7/4 16:09
  * @Purpose :主界面数据层
  */
-class MainModel  :MainView.Model{
-    override fun requestCarLength(context: Context, request: RequestResultInterface) {
+class MainModel : MainView.Model {
+    override fun requestGson(context: Context, request: RequestResultInterface) {
+        Request_Net.getGson({
+            request.Success(it)
+        }, {
+            request.onComplise()
 
+        }, {
+            request.onError(it)
+        })
     }
 }
