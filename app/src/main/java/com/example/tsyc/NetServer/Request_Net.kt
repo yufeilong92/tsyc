@@ -1,6 +1,7 @@
 package com.example.tsyc.NetServer
 
 import android.util.Log
+import com.backpacker.UtilsLibrary.kotlin.BaseEntity
 import com.backpacker.UtilsLibrary.kotlin.T
 import com.backpacker.UtilsLibrary.net.BaseServiceUtil
 import com.backpacker.UtilsLibrary.net.CommonInterceptor
@@ -117,14 +118,16 @@ object Request_Net {
             }
 
             override fun onResponse(call: Call<String>, response: Response<String>) {
-               if(response.isSuccessful){
-                   success(response.body().toString())
-               }else{
-                   error(Throwable(response.message()))
-               }
+                if (response.isSuccessful) {
+                    success(response.body().toString())
+                } else {
+                    error(Throwable(response.message()))
+                }
                 complete()
             }
 
         })
     }
+
+
 }
