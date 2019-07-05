@@ -17,13 +17,12 @@ import com.backpacker.UtilsLibrary.kotlin.LogUtil
 import me.nereo.multi_image_selector.MultiImageSelector
 import me.nereo.multi_image_selector.MultiImageSelectorActivity
 import android.R.attr.data
-
-
+import com.example.tsyc.customView.SelectCammerDialog
 
 
 class MainActivity : BaseActivity() {
     private val REQ_CODE_PERMISSION = 0x1111
-    var mSelectPath= arrayListOf<String>()
+    var mSelectPath = arrayListOf<String>()
     override fun setContentView(): Int {
         return R.layout.activity_main
     }
@@ -58,6 +57,10 @@ class MainActivity : BaseActivity() {
                     .origin(mSelectPath) // original select data set, used width #.multi()
                     .start(this@MainActivity, REQ_CODE_PERMISSION);
             }
+        }
+        btn_three.setOnClickListener {
+            val dialog = SelectCammerDialog(mContext)
+            dialog.show()
         }
     }
 
@@ -100,12 +103,12 @@ class MainActivity : BaseActivity() {
                 }
 
             }
-            REQ_CODE_PERMISSION->{
-                when(resultCode){
-                    RESULT_OK->{
+            REQ_CODE_PERMISSION -> {
+                when (resultCode) {
+                    RESULT_OK -> {
                         if (data != null) {
                             val path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)
-                            for (item in path){
+                            for (item in path) {
                                 LogUtil.e(item)
                             }
                         }
