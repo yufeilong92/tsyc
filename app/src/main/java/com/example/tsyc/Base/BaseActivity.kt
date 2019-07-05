@@ -1,7 +1,7 @@
 package com.example.tsyc.Base
 
-import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.backpacker.UtilsLibrary.base.StartActivityManger
 import com.backpacker.UtilsLibrary.kotlin.AppManager
 import com.backpacker.UtilsLibrary.kotlin.PermissionUtils
@@ -14,7 +14,7 @@ import com.example.tsyc.Manage.ResultActivityTo
  * @Time :2019/7/4 16:26
  * @Purpose :activity基础类
  */
-abstract class BaseActivity : Activity() {
+abstract class BaseActivity : AppCompatActivity() {
     lateinit var mContext: BaseActivity
     lateinit var mResultTo: ResultActivityTo
     val appManager: AppManager = AppManager.appManager

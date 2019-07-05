@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$/UtilsLibrary" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/simplezxing" />
+            <option value="$PROJECT_DIR$/update-app-kotlin" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

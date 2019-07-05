@@ -44,8 +44,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
     implementation project(path: ':simplezxing')
     implementation 'com.yanzhenjie:permission:2.0.0-rc11'
-    implementation 'com.android.support:design:28.0.3'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.github.lovetuzitong:MultiImageSelector:1.2'
-
+    implementation 'com.qianwen:update-app:3.5.2'
+    implementation 'com.qianwen:okhttp-utils:3.8.0'
+    implementation project(path: ':update-app-kotlin')
 }
