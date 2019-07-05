@@ -1,9 +1,9 @@
 package com.backpacker.UtilsLibrary.base
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.FragmentActivity
 import com.example.UtilsLibrary.R
 
 /**
@@ -14,6 +14,9 @@ import com.example.UtilsLibrary.R
  * @Purpose :跳转类
  */
  open class StartActivityManger(var mContext:Activity) {
+    companion object{
+        val CNT_PARAMETE_TITLE: String = "param_title"
+    }
     fun jumpTo(clazz: Class<*>) {
         val intentB = Intent()
         intentB.setClass(mContext, clazz)
@@ -24,7 +27,7 @@ import com.example.UtilsLibrary.R
     fun jumpTo(clazz: Class<*>, title: String) {
         val intentB = Intent()
         intentB.setClass(mContext, clazz)
-        intentB.putExtra(BaseActivity.CNT_PARAMETE_TITLE, title)
+        intentB.putExtra(CNT_PARAMETE_TITLE, title)
         mContext.startActivity(intentB)
         mContext.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out)
     }
@@ -41,7 +44,7 @@ import com.example.UtilsLibrary.R
         val intentB = Intent()
         intentB.setClass(mContext, clazz)
         intentB.putExtras(bundle)
-        intentB.putExtra(BaseActivity.CNT_PARAMETE_TITLE, title)
+        intentB.putExtra(CNT_PARAMETE_TITLE, title)
         mContext.startActivity(intentB)
         mContext.overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out)
     }
@@ -50,7 +53,7 @@ import com.example.UtilsLibrary.R
         val intentB = Intent()
         intentB.setClass(mContext, clazz)
         intentB.putExtras(bundle)
-        intentB.putExtra(BaseActivity.CNT_PARAMETE_TITLE, title)
+        intentB.putExtra(CNT_PARAMETE_TITLE, title)
         mContext.startActivity(intentB)
         mContext.overridePendingTransition(R.anim.weather_up, R.anim.weather_down)
     }
@@ -59,7 +62,7 @@ import com.example.UtilsLibrary.R
         val intentB = Intent()
         intentB.setClass(mContext, clazz)
         intentB.putExtras(bundle)
-        intentB.putExtra(BaseActivity.CNT_PARAMETE_TITLE, title)
+        intentB.putExtra(CNT_PARAMETE_TITLE, title)
         mContext.startActivity(intentB)
         mContext.overridePendingTransition(R.anim.weather_up, R.anim.weather_down)
     }
@@ -113,7 +116,7 @@ import com.example.UtilsLibrary.R
         val intentB = Intent()
         intentB.setClass(mContext, clazz)
         intentB.putExtras(bundle)
-        intentB.putExtra(BaseActivity.CNT_PARAMETE_TITLE, title)
+        intentB.putExtra(CNT_PARAMETE_TITLE, title)
         mContext.startActivityForResult(intentB, resultCode)
         mContext.overridePendingTransition(R.anim.push_buttom_in, R.anim.push_buttom_out)
     }

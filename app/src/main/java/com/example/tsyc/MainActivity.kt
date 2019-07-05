@@ -1,33 +1,23 @@
 package com.example.tsyc
 
 import android.content.Intent
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.acker.simplezxing.activity.CaptureActivity
-import com.backpacker.UtilsLibrary.base.BaseActivity
+import com.example.tsyc.Base.BaseActivity
 import com.backpacker.UtilsLibrary.kotlin.PermissionUtils
 import com.backpacker.UtilsLibrary.kotlin.Util
 import com.yanzhenjie.permission.Permission
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
-import android.R.attr.data
-import com.backpacker.UtilsLibrary.kotlin.LogUtil
-import me.nereo.multi_image_selector.MultiImageSelector
-import me.nereo.multi_image_selector.MultiImageSelectorActivity
-import android.R.attr.data
-import com.example.tsyc.customView.SelectCammerDialog
 
 
 class MainActivity : BaseActivity() {
-    private val REQ_CODE_PERMISSION = 0x1111
-    var mSelectPath = arrayListOf<String>()
-    override fun setContentView(): Int {
+    override fun setInitContentView(): Int {
         return R.layout.activity_main
     }
 
-    override fun onCreateView(savedInstanceState: Bundle?) {
+    override fun onInitCreateView(savedInstanceState: Bundle?) {
         initView()
     }
 
@@ -44,24 +34,9 @@ class MainActivity : BaseActivity() {
             if (Util.handleOnDoubleClick()) {
                 return@setOnClickListener
             }
-            PermissionUtils.showPermission(
-                mContext,
-                "",
-                arrayOf(Permission.CAMERA, Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE)
-            ) {
-                MultiImageSelector.create(mContext)
-                    .showCamera(true) // show camera or not. true by default
-                    .count(9) // max select image size, 9 by default. used width #.multi()
-                    .single() // single mode
-                    .multi() // multi mode, default mode;
-                    .origin(mSelectPath) // original select data set, used width #.multi()
-                    .start(this@MainActivity, REQ_CODE_PERMISSION);
-            }
+            mResultTo.toSelectCammer()
         }
-        btn_three.setOnClickListener {
-            val dialog = SelectCammerDialog(mContext)
-            dialog.show()
-        }
+
     }
 
 
@@ -99,19 +74,6 @@ class MainActivity : BaseActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                         Log.e("二维码扫描结果=", data!!.getStringExtra(CaptureActivity.EXTRA_SCAN_RESULT) + "");
-                    }
-                }
-
-            }
-            REQ_CODE_PERMISSION -> {
-                when (resultCode) {
-                    RESULT_OK -> {
-                        if (data != null) {
-                            val path = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT)
-                            for (item in path) {
-                                LogUtil.e(item)
-                            }
-                        }
                     }
                 }
 

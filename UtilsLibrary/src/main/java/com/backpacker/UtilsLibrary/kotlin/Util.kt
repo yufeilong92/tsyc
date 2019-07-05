@@ -11,6 +11,7 @@ import android.text.method.PasswordTransformationMethod
 import android.text.method.HideReturnsTransformationMethod
 import android.view.ViewTreeObserver
 import android.app.Activity
+import android.app.Dialog
 import android.system.Os.close
 import android.view.WindowManager
 import android.widget.*
@@ -317,5 +318,13 @@ object Util {
         }
         return mutableList
     }
-
+    /**
+     * 展示dialog
+     * @param dialog
+     */
+    fun showDialog(dialog: Dialog?) {
+        if (dialog != null && !dialog.isShowing) {
+            dialog.show()
+        }
+    }
 }
