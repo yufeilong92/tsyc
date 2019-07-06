@@ -44,7 +44,6 @@ object RetrofitFactory {
             .baseUrl(BASE_URL)
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
-//                .addConverterFactory(FastJsonConverterFactory())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
