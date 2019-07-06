@@ -4,8 +4,8 @@ import android.content.Context
 import com.backpacker.UtilsLibrary.kotlin.NetWork
 import com.backpacker.UtilsLibrary.kotlin.T
 import com.backpacker.UtilsLibrary.net.CommonInterceptor
-import com.example.tsyc.NetServer.Request_Net
-import com.example.tsyc.Vo.DataManager
+import com.example.tsyc.netserver.Request_Net
+import com.example.tsyc.vo.DataMessageVo
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitFactory {
 
     //    val BASE_URL: String = "http://zzzh.natapp1.cc/"
-    val BASE_URL: String = DataManager.mHttp
+    val BASE_URL: String = DataMessageVo.mHttp
 
     private val TIMEOUT: Long = 60
     private var mainRetrofit: Request_Net? = null

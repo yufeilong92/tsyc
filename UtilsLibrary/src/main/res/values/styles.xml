@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--跑马灯效果-->
     <style name="TitleBarMarqueeText">
         <item name="android:layout_width">0dp</item>
@@ -40,5 +40,13 @@
     <style name="popup_animation" mce_bogus="1" parent="android:Animation">
         <item name="android:windowEnterAnimation">@anim/push_buttom_in</item>
         <item name="android:windowExitAnimation">@anim/popup_bottom_out</item>
+    </style>
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 </resources>
